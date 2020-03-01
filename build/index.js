@@ -127,7 +127,11 @@ registerBlockType('lapizzeria/boxes', {
       selector: 'box h2'
     }
   },
-  edit: function edit() {
+  edit: function edit(props) {
+    // Extraer el contenido desde props
+    var headingBox = props.attributes.headingBox,
+        setAttributes = props.setAttributes;
+
     var onChangeHeadingBox = function onChangeHeadingBox(nuevoHeading) {
       console.log(nuevoHeading);
     };

@@ -26,11 +26,16 @@ registerBlockType('lapizzeria/boxes', {
             selector: 'box h2'
         }
     },
-    edit: () => {
+    edit: (props) => {
 
-    const onChangeHeadingBox = nuevoHeading => {
-        console.log(nuevoHeading)
-    }
+        // Extraer el contenido desde props
+        const {attributes: { headingBox }, setAttributes } = props;
+
+
+
+        const onChangeHeadingBox = nuevoHeading => {
+            console.log(nuevoHeading)
+        }
         return(
             <div className="box">
                 <h2>
