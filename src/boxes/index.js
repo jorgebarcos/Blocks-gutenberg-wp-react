@@ -1,5 +1,5 @@
 const { registerBlockType} = wp.blocks;
-const { RichText } = wp.editor;
+const { RichText } = wp.blockEditor;
 
 // Logo para el bloque
 import { ReactComponent as Logo} from '../pizzeria-icon.svg';
@@ -20,10 +20,15 @@ registerBlockType('lapizzeria/boxes', {
     icon: { src: Logo },
     category: 'lapizzeria',
     edit: () => {
+
+    const onChangeHeadingBox = nuevoHeading => {
+        console.log(nuevoHeading)
+    }
         return(
             <div>
                 <RichText 
                 placeholder="Agrega el Encabezado"
+                onChange={onChangeHeadingBox}
                 />
             </div>
         )

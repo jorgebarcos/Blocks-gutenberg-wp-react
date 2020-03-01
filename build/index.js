@@ -100,7 +100,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pizzeria_icon_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../pizzeria-icon.svg */ "./src/pizzeria-icon.svg");
 
 var registerBlockType = wp.blocks.registerBlockType;
-var RichText = wp.editor.RichText; // Logo para el bloque
+var RichText = wp.blockEditor.RichText; // Logo para el bloque
 
 
 /**
@@ -121,8 +121,13 @@ registerBlockType('lapizzeria/boxes', {
   },
   category: 'lapizzeria',
   edit: function edit() {
+    var onChangeHeadingBox = function onChangeHeadingBox(nuevoHeading) {
+      console.log(nuevoHeading);
+    };
+
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
-      placeholder: "Agrega el Encabezado"
+      placeholder: "Agrega el Encabezado",
+      onChange: onChangeHeadingBox
     }));
   },
   save: function save() {
