@@ -21,7 +21,11 @@ registerBlockType('lapizzeria/boxes', {
     category: 'lapizzeria',
     edit: () => {
         return(
-            <h1>Se ve en el editor</h1>
+            <div>
+                <RichText 
+                placeholder="Agrega el Encabezado"
+                />
+            </div>
         )
     },
     save: () => {
