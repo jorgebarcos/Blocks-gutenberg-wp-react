@@ -34,7 +34,7 @@ registerBlockType('lapizzeria/boxes', {
 
 
         const onChangeHeadingBox = nuevoHeading => {
-            console.log(nuevoHeading)
+            setAttributes({headingBox})
         }
         return(
             <div className="box">
