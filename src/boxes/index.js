@@ -19,17 +19,26 @@ registerBlockType('lapizzeria/boxes', {
     title: 'Pizzeria Cajas',
     icon: { src: Logo },
     category: 'lapizzeria',
+    attributes: {
+        headingBox : {
+            type: 'string',
+            source: 'html',
+            selector: 'box h2'
+        }
+    },
     edit: () => {
 
     const onChangeHeadingBox = nuevoHeading => {
         console.log(nuevoHeading)
     }
         return(
-            <div>
-                <RichText 
-                placeholder="Agrega el Encabezado"
-                onChange={onChangeHeadingBox}
-                />
+            <div className="box">
+                <h2>
+                    <RichText 
+                    placeholder="Agrega el Encabezado"
+                    onChange={onChangeHeadingBox}
+                    />
+                </h2>
             </div>
         )
     },
