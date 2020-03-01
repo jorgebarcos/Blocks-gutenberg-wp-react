@@ -30,18 +30,25 @@ registerBlockType('lapizzeria/boxes', {
             type: 'string',
             source: 'html',
             selector: '.box p'
+        },
+        colorFondo: {
+            type: 'string'
         }
     },
     edit: (props) => {
 
         // Extraer el contenido desde props
-        const {attributes: { headingBox, textoBox }, setAttributes } = props;
+        const {attributes: { headingBox, textoBox, colorFondo }, setAttributes } = props;
 
         const onChangeHeadingBox = nuevoHeading => {
             setAttributes({headingBox : nuevoHeading})
         }
         const onChangeTextoBox = nuevoTexto => {
             setAttributes({textoBox : nuevoTexto})
+        }
+
+        const onChangeColorFondo = nuevoColor => {
+            setAttributes({ colorFondo : nuevoColor })
         }
         return(
             <>
@@ -55,12 +62,14 @@ registerBlockType('lapizzeria/boxes', {
                             <label className="components-base-control__label">
                                 Color de Fondo    
                             </label>
-                            <ColorPalette />    
+                            <ColorPalette 
+                                onChange={onChangeColorFondo}  value={colorFondo}                  
+                            />    
                             </div>    
                         </div>  
                     </PanelBody>
                 </InspectorControls>
-                <div className="box">
+                <div className="box" style={{ backgroundColor : colorFondo}}>
                     <h2>
                         <RichText 
                         placeholder="Agrega el Encabezado"
@@ -82,10 +91,10 @@ registerBlockType('lapizzeria/boxes', {
     save: (props) => {
 
         // Extraer el contenido desde props
-        const {attributes: {  headingBox, textoBox }} = props;
+        const {attributes: {  headingBox, textoBox, colorFondo }} = props;
 
         return(
-            <div className="box">
+            <div className="box" style={{ backgroundColor : colorFondo}}>
                 <h2>
                     <RichText.Content value={headingBox}
                     />
