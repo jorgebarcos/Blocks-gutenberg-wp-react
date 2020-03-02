@@ -17,9 +17,19 @@ registerBlockType('lapizzeria/menu', {
     })
     
     ( ({ especialidades }) => {
+        console.log(especialidades)
 
         return(
-            <h1>en el editor</h1>
+            <>
+                <h2>Nuestras Especialidades</h2>
+                <ul className="nuestro-menu">
+                    {especialidades.map(especialidad => (
+                       <li>
+                           <h3>{especialidad.title.rendered}</h3>
+                       </li> 
+                    ))}
+                </ul>
+            </>
         )
     }),
     save: () => {
