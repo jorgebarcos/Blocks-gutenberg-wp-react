@@ -309,9 +309,15 @@ registerBlockType('lapizzeria/menu', {
     src: _pizzeria_icon_svg__WEBPACK_IMPORTED_MODULE_1__["ReactComponent"]
   },
   category: 'lapizzeria',
-  edit: function edit() {
+  edit: withSelect(function (select) {
+    return {
+      // Enviar una petición a la api
+      especialidades: select("core").getEntityRecords('postType', 'especialidades')
+    };
+  })(function (_ref) {
+    var especialidades = _ref.especialidades;
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h1", null, "en el editor");
-  },
+  }),
   save: function save() {
     return null;
   }

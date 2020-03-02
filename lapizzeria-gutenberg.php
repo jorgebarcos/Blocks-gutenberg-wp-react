@@ -88,5 +88,5 @@ add_action('init', 'lapizzeria_registrar_bloques');
 /** Consulta la base de datos para mostrar los resultados en el front end*/
 
 function lapizzeria_especialidades_front_end() {
-    return 'En el front end'
+    return 'En el front end';
    }
