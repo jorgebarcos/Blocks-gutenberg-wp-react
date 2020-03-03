@@ -87,13 +87,15 @@ add_action('init', 'lapizzeria_registrar_bloques');
 
 /** Consulta la base de datos para mostrar los resultados en el front end*/
 
-function lapizzeria_especialidades_front_end() {
+function lapizzeria_especialidades_front_end($atts) {
+
+
 
     // Obtener los datos del Query
     $especialidades = wp_get_recent_posts(array(
         'post_type' => 'especialidades',
         'post_status' => 'publish',
-        'numberposts' => 10
+        'numberposts' => $atts['cantidadMostrar']
     ));
 
     // Revisar que haya resultados
