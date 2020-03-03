@@ -40,6 +40,16 @@ registerBlockType('lapizzeria/menu', {
 
         // Extraer los props
         const {attributes: {cantidadMostrar}} = props;
+
+        // Verificar especialidades
+        if(!especialidades) {
+            return 'Cargando...';
+        }
+
+        // Si no hay especialidades
+        if(especialidades && especialidades.length === 0) {
+            return 'No hay resultados';
+        }
         return(
             <>
 
@@ -63,7 +73,7 @@ registerBlockType('lapizzeria/menu', {
                         </div>  
                     </PanelBody>
                 </InspectorControls>
-                <h2>Nuestras Especialidades</h2>
+                <h2 className="titulo-menu">Nuestras Especialidades</h2>
                 <ul className="nuestro-menu">
                     {especialidades.map(especialidad => (
                        <li>

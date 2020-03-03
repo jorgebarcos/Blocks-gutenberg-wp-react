@@ -102,7 +102,7 @@ function lapizzeria_especialidades_front_end() {
     }
 
     $cuerpo = '';
-    $cuerpo .= '<h2>Nuestras Especialidades</h2>';
+    $cuerpo .= '<h2 class="titulo-menu">Nuestras Especialidades</h2>';
     $cuerpo .= '<ul class="nuestro-menu">';
     foreach($especialidades as $esp):
         // obtener un objeto del post
