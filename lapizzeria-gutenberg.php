@@ -13,14 +13,6 @@
 
 if(!defined('ABSPATH')) exit;
 
-/* Registrar bloques, scripts y css */
-
-function lapizzeria_registrar_bloques() {
-
-    // Si gutenber no existe, salir
-    if(!function_exists('register_block_type')) {
-        return;
-    }
 
     /** Categorias Personalizadas */
 function lapizzeria_categoria_personalizada($categories, $post) {
@@ -36,6 +28,16 @@ function lapizzeria_categoria_personalizada($categories, $post) {
     );
 }
 add_filter('block_categories', 'lapizzeria_categoria_personalizada', 10, 2);
+
+/* Registrar bloques, scripts y css */
+
+function lapizzeria_registrar_bloques() {
+
+    // Si gutenber no existe, salir
+    if(!function_exists('register_block_type')) {
+        return;
+    }
+
     // Registrar los bloques en el editor
     wp_register_script(
         'lapizzeria-editor-script',  // nombre unico
@@ -89,13 +91,29 @@ add_action('init', 'lapizzeria_registrar_bloques');
 
 function lapizzeria_especialidades_front_end($atts) {
 
+    // echo "<pre>";
+     // var_dump($atts);
+     // echo "</pre>";
 
+     // Extraer los valores y agregar defaults
+     $cantidad = $atts['cantidadMostrar'] ? $atts['cantidadMostrar'] : 4;
+     $titulo_bloque = $atts['tituloBloque'] ? $atts['tituloBloque'] : 'Nuestras Especialidades';
+     $tax_query = array();
+
+     if(isset($atts['categoriaMenu'])){
+        $tax_query[] =  array(
+            'taxonomy' => 'categoria-menu',
+            'terms' => $atts['categoriaMenu'],
+            'field' => 'term_id'
+        );
+    }
 
     // Obtener los datos del Query
     $especialidades = wp_get_recent_posts(array(
         'post_type' => 'especialidades',
         'post_status' => 'publish',
-        'numberposts' => $atts['cantidadMostrar']
+        'numberposts' => $cantidad,
+        'tax_query' => $tax_query
     ));
 
     // Revisar que haya resultados
@@ -104,7 +122,9 @@ function lapizzeria_especialidades_front_end($atts) {
     }
 
     $cuerpo = '';
-    $cuerpo .= '<h2 class="titulo-menu">Nuestras Especialidades</h2>';
+    $cuerpo .= '<h2 class="titulo-menu">';
+    $cuerpo .= $titulo_bloque;
+    $cuerpo .= '</h2>';
     $cuerpo .= '<ul class="nuestro-menu">';
     foreach($especialidades as $esp):
         // obtener un objeto del post

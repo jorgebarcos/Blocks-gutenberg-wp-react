@@ -405,7 +405,8 @@ registerBlockType('lapizzeria/menu', {
     }
   },
   edit: withSelect(function (select, props) {
-    // Extraer los valores
+    console.log(props); // extraer los valores
+
     var _props$attributes = props.attributes,
         cantidadMostrar = _props$attributes.cantidadMostrar,
         categoriaMenu = _props$attributes.categoriaMenu,
@@ -430,7 +431,7 @@ registerBlockType('lapizzeria/menu', {
     };
 
     return {
-      categorias: select("core").getEntityRecords('taxonomy', 'categoria-menu'),
+      categorias: select('core').getEntityRecords('taxonomy', 'categoria-menu'),
       // Enviar una petición a la api
       especialidades: select("core").getEntityRecords('postType', 'especialidades', {
         'categoria-menu': categoriaMenu,
@@ -448,8 +449,7 @@ registerBlockType('lapizzeria/menu', {
         onChangeCategoriaMenu = _ref.onChangeCategoriaMenu,
         onChangeTituloBloque = _ref.onChangeTituloBloque,
         props = _ref.props;
-    console.log(categorias); // Extraer los props
-
+    // extraer los props
     var _props$attributes2 = props.attributes,
         cantidadMostrar = _props$attributes2.cantidadMostrar,
         categoriaMenu = _props$attributes2.categoriaMenu,
@@ -462,15 +462,18 @@ registerBlockType('lapizzeria/menu', {
 
     if (especialidades && especialidades.length === 0) {
       return 'No hay resultados';
-    } // Verificar categorias
+    } // console.log(categorias);
+    // Verificar categorias
 
 
     if (!categorias) {
       console.log('No hay categorias');
+      return null;
     }
 
     if (categorias && categorias.length === 0) {
       console.log('No hay resultados');
+      return null;
     } // Generar label y value a categorias
 
 
@@ -499,7 +502,7 @@ registerBlockType('lapizzeria/menu', {
       max: 10,
       value: cantidadMostrar || 4
     })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
-      title: 'Categoria de Especialidad',
+      title: 'Categoría de Especialidad',
       initialOpen: false
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       className: "components-base-control"
@@ -507,7 +510,7 @@ registerBlockType('lapizzeria/menu', {
       className: "components-base-control__field"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("label", {
       className: "components-base-control__label"
-    }, "Categoria de Especialidad"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
+    }, "Categor\xEDa de Especialidad"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
       options: listadoCategorias,
       onChange: onChangeCategoriaMenu,
       value: categoriaMenu
@@ -537,7 +540,7 @@ registerBlockType('lapizzeria/menu', {
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h3", null, especialidad.title.rendered), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, "$ ", especialidad.precio)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
         className: "contenido-platillo"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText.Content, {
-        value: especialidad.content.rendered
+        value: especialidad.content.rendered.substring(0, 180)
       })))));
     })));
   }),
