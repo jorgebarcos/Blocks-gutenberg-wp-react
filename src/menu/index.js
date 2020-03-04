@@ -14,32 +14,41 @@ registerBlockType('lapizzeria/menu', {
     attributes: {
         cantidadMostrar: {
             type: 'number'
+        },
+        categoriaMenu: {
+            type: 'number'
         }
     },
     edit: withSelect( (select, props)  => {
 
         // Extraer los valores
-        const {attributes: {cantidadMostrar}, setAttributes} = props;
+        const {attributes: {cantidadMostrar, categoriaMenu}, setAttributes} = props;
 
         const onChangeCantidadMostrar = nuevaCantidad => {
             setAttributes({cantidadMostrar : parseInt (nuevaCantidad)})
+        }
+
+        const onChangeCategoriaMenu = nuevaCategoria => {
+            setAttributes({categoriaMenu : nuevaCategoria})
         }
         return {
             categorias: select("core").getEntityRecords('taxonomy', 'categoria-menu'),
             // Enviar una petición a la api
             especialidades: select("core").getEntityRecords('postType', 'especialidades', {
+                'categoria-menu' : categoriaMenu,
                 per_page : cantidadMostrar || 4
             }), 
             onChangeCantidadMostrar,
+            onChangeCategoriaMenu,
             props
         };
     })
     
-    ( ({ categorias, especialidades, onChangeCantidadMostrar, props }) => {
+    ( ({ categorias, especialidades, onChangeCantidadMostrar, onChangeCategoriaMenu, props }) => {
         console.log(categorias)
 
         // Extraer los props
-        const {attributes: {cantidadMostrar}} = props;
+        const {attributes: {cantidadMostrar, categoriaMenu}} = props;
 
         // Verificar especialidades
         if(!especialidades) {
@@ -55,15 +64,20 @@ registerBlockType('lapizzeria/menu', {
         if(!categorias) {
             console.log('No hay categorias');
         }
-        if(categorias && categorias.length ===0) {
+        if(categorias && categorias.length === 0) {
             console.log('No hay resultados');
         }
 
         // Generar label y value a categorias
-        categorias.forEach ( categoria => {
+        categorias.forEach( categoria => {
             categoria['label'] = categoria.name;
             categoria['value'] = categoria.id;
         })
+
+        // Arreglo con valores por default
+        const opcionDefault = [{ value: '', label : ' -- Todos -- '}];
+        const listadoCategorias = [...opcionDefault, ...categorias ];
+        
 
         return(
             <>
@@ -99,7 +113,9 @@ registerBlockType('lapizzeria/menu', {
                             </label> 
 
                             <SelectControl
-                                option={ categorias }
+                                options={ listadoCategorias }
+                                onChange={onChangeCategoriaMenu}
+                                value={categoriaMenu}
                             />
 
                             </div>    
