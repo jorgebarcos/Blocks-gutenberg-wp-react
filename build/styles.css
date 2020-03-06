@@ -49,8 +49,8 @@
     height: 24rem;
 }
 .cajas-nosotros img {
-    display: block;
-    object-fit: cover;
+    display: block!important;
+    object-fit: cover!important;
     height: 30rem;
     width: 100%;
 }
